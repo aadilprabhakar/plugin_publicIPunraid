@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<PLUGIN xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/dlandon/unraid.plugin.helper/master/plugin.helper.xsd">
+  <PLUGIN>
+    <NAME>Public IP Address</NAME>
+    <DESCRIPTION>Displays the server's public IP address on the dashboard with auto-refresh</DESCRIPTION>
+    <AUTHOR>Unraid Community</AUTHOR>
+    <VERSION>1.0.0</VERSION>
+    <!-- <ICON>https://raw.githubusercontent.com/dlandon/unraid.plugin.helper/master/icon.png</ICON> -->
+    <MINIMUM>7.2.2</MINIMUM>
+    <MAXIMUM>7.2.2</MAXIMUM>
+  </PLUGIN>
+  <FILES>
+    <FILE Name="/usr/local/emhttp/plugins/layzcrayz_publicip/publicip.php" />
+    <FILE Name="/usr/local/emhttp/plugins/layzcrayz_publicip/include.php" />
+    <FILE Name="/usr/local/emhttp/plugins/layzcrayz_publicip/get_public_ip.sh" />
+    <FILE Name="/usr/local/emhttp/plugins/layzcrayz_publicip/publicip.js" />
+  </FILES>
+  <INSTALL>
+    <FILE Name="/usr/local/emhttp/plugins/layzcrayz_publicip/publicip.php" />
+    <FILE Name="/usr/local/emhttp/plugins/layzcrayz_publicip/include.php" />
+    <FILE Name="/usr/local/emhttp/plugins/layzcrayz_publicip/get_public_ip.sh" Mode="0755" />
+    <FILE Name="/usr/local/emhttp/plugins/layzcrayz_publicip/publicip.js" />
+  </INSTALL>
+  <UNINSTALL>
+    <REMOVE Dir="/usr/local/emhttp/plugins/layzcrayz_publicip" />
+  </UNINSTALL>
+</PLUGIN>
+
