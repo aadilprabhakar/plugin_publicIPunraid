@@ -10,10 +10,10 @@
     <MAXIMUM>7.2.2</MAXIMUM>
   </PLUGIN>
   <FILES>
-    <FILE Name="/usr/local/emhttp/plugins/layzcrayz_publicip/publicip.php" />
-    <FILE Name="/usr/local/emhttp/plugins/layzcrayz_publicip/include.php" />
-    <FILE Name="/usr/local/emhttp/plugins/layzcrayz_publicip/get_public_ip.sh" />
-    <FILE Name="/usr/local/emhttp/plugins/layzcrayz_publicip/publicip.js" />
+    <FILE Name="/usr/local/emhttp/plugins/layzcrayz_publicip/publicip.php" Url="https://raw.githubusercontent.com/aadilprabhakar/plugin_publicIPunraid/main/publicip.php" />
+    <FILE Name="/usr/local/emhttp/plugins/layzcrayz_publicip/include.php" Url="https://raw.githubusercontent.com/aadilprabhakar/plugin_publicIPunraid/main/include.php" />
+    <FILE Name="/usr/local/emhttp/plugins/layzcrayz_publicip/get_public_ip.sh" Url="https://raw.githubusercontent.com/aadilprabhakar/plugin_publicIPunraid/main/get_public_ip.sh" />
+    <FILE Name="/usr/local/emhttp/plugins/layzcrayz_publicip/publicip.js" Url="https://raw.githubusercontent.com/aadilprabhakar/plugin_publicIPunraid/main/publicip.js" />
   </FILES>
   <INSTALL>
     <FILE Name="/usr/local/emhttp/plugins/layzcrayz_publicip/publicip.php" />
