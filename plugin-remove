@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# This script is executed once when the plugin is removed.
+
+PLUGIN_DIR="/usr/local/emhttp/plugins/publicip"
+
+# Remove the plugin directory
+rm -rf "$PLUGIN_DIR"
+
+echo "Public IP plugin removed."

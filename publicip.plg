@@ -1,28 +1,56 @@
-<?xml version="1.0"?>
-<PLUGIN xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/dlandon/unraid.plugin.helper/master/plugin.helper.xsd">
-  <PLUGIN>
-    <NAME>Public IP Address</NAME>
-    <DESCRIPTION>Displays the server's public IP address on the dashboard with auto-refresh</DESCRIPTION>
-    <AUTHOR>Unraid Community</AUTHOR>
-    <VERSION>1.0.0</VERSION>
-    <!-- <ICON>https://raw.githubusercontent.com/dlandon/unraid.plugin.helper/master/icon.png</ICON> -->
-    <MINIMUM>7.2.2</MINIMUM>
-    <MAXIMUM>7.2.2</MAXIMUM>
-  </PLUGIN>
-  <FILES>
-    <FILE Name="/usr/local/emhttp/plugins/layzcrayz_publicip/publicip.php" Url="https://raw.githubusercontent.com/aadilprabhakar/plugin_publicIPunraid/main/publicip.php" />
-    <FILE Name="/usr/local/emhttp/plugins/layzcrayz_publicip/include.php" Url="https://raw.githubusercontent.com/aadilprabhakar/plugin_publicIPunraid/main/include.php" />
-    <FILE Name="/usr/local/emhttp/plugins/layzcrayz_publicip/get_public_ip.sh" Url="https://raw.githubusercontent.com/aadilprabhakar/plugin_publicIPunraid/main/get_public_ip.sh" />
-    <FILE Name="/usr/local/emhttp/plugins/layzcrayz_publicip/publicip.js" Url="https://raw.githubusercontent.com/aadilprabhakar/plugin_publicIPunraid/main/publicip.js" />
-  </FILES>
-  <INSTALL>
-    <FILE Name="/usr/local/emhttp/plugins/layzcrayz_publicip/publicip.php" />
-    <FILE Name="/usr/local/emhttp/plugins/layzcrayz_publicip/include.php" />
-    <FILE Name="/usr/local/emhttp/plugins/layzcrayz_publicip/get_public_ip.sh" Mode="0755" />
-    <FILE Name="/usr/local/emhttp/plugins/layzcrayz_publicip/publicip.js" />
-  </INSTALL>
-  <UNINSTALL>
-    <REMOVE Dir="/usr/local/emhttp/plugins/layzcrayz_publicip" />
-  </UNINSTALL>
-</PLUGIN>
+<?xml version='1.0' standalone='yes'?>
+<!DOCTYPE PLUGIN [
+<!ENTITY name "publicip">
+<!ENTITY author "Gemini">
+<!ENTITY version "2026.01.17">
+<!ENTITY description "Displays the server's public IP address in the footer of the Unraid UI.">
+<!ENTITY plg_url "https://github.com/example/unraid-publicip">
+<!ENTITY git_url "https://github.com/example/unraid-publicip">
+]>
+<PLUGIN name="&name;" author="&author;" version="&version;" description="&description;" pluginURL="&plg_url;" icon="globe" min="6.9.0">
 
+<!-- This file is the source of the plugin, which will be downloaded to /boot/config/plugins -->
+<FILE Name="/boot/config/plugins/&name;.plg" url="&git_url;/raw/master/&name;.plg" required="true">
+<CHANGES>
+### 2026.01.17
+- Initial Release
+</CHANGES>
+</FILE>
+
+<!-- Add script to footer -->
+<FILE Name="/usr/local/emhttp/plugins/&name;/publicip.js">
+<INLINE>
+/plugins/&name;/publicip.js
+</INLINE>
+</FILE>
+
+<!-- The installation script -->
+<FILE Run="/bin/bash" Method="install">
+<INLINE>
+# Copy doinst.sh to a temporary location and execute it
+cp /boot/config/plugins/&name;/doinst.sh /tmp/doinst-&name;.sh
+chmod +x /tmp/doinst-&name;.sh
+/tmp/doinst-&name;.sh
+rm /tmp/doinst-&name;.sh
+</INLINE>
+</FILE>
+
+<!-- The uninstallation script -->
+<FILE Run="/bin/bash" Method="remove">
+<INLINE>
+# Copy plugin-remove to a temporary location and execute it
+cp /boot/config/plugins/&name;/plugin-remove /tmp/remove-&name;.sh
+chmod +x /tmp/remove-&name;.sh
+/tmp/remove-&name;.sh
+rm /tmp/remove-&name;.sh
+</INLINE>
+</FILE>
+
+<!-- The files that make up the plugin, to be placed in /boot/config/plugins/publicip/ -->
+<FILE Name="/boot/config/plugins/&name;/doinst.sh" url="&git_url;/raw/master/doinst.sh" required="true" md5="56033baf183be7ea74f4c3a7b1262829"/>
+<FILE Name="/boot/config/plugins/&name;/plugin-remove" url="&git_url;/raw/master/plugin-remove" required="true" md5="d260abaacfbde45a58a47bcba797fba1"/>
+<FILE Name="/boot/config/plugins/&name;/src/get_public_ip.sh" url="&git_url;/raw/master/src/get_public_ip.sh" required="true" md5="1bd2fe581515ec95148fc91d6c6ceb0f"/>
+<FILE Name="/boot/config/plugins/&name;/src/publicip.js" url="&git_url;/raw/master/src/publicip.js" required="true" md5="70ea9b66670b915ff9061acb4e6cbc11"/>
+<FILE Name="/boot/config/plugins/&name;/src/publicip.php" url="&git_url;/raw/master/src/publicip.php" required="true" md5="0814aabdfcdfb485e671c7ff87e7b844"/>
+
+</PLUGIN>
