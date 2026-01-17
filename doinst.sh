@@ -9,9 +9,9 @@ SRC_DIR="/boot/config/plugins/publicip"
 mkdir -p "$PLUGIN_DIR"
 
 # Copy the plugin files from the installation source to the plugins directory
-cp "$SRC_DIR/src/publicip.php" "$PLUGIN_DIR/"
-cp "$SRC_DIR/src/publicip.js" "$PLUGIN_DIR/"
-cp "$SRC_DIR/src/get_public_ip.sh" "$PLUGIN_DIR/"
+cp "$SRC_DIR/publicip.php" "$PLUGIN_DIR/"
+cp "$SRC_DIR/publicip.js" "$PLUGIN_DIR/"
+cp "$SRC_DIR/get_public_ip.sh" "$PLUGIN_DIR/"
 
 # Make the shell script executable
 chmod +x "$PLUGIN_DIR/get_public_ip.sh"
