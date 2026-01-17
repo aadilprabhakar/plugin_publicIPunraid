@@ -47,10 +47,10 @@ rm /tmp/remove-&name;.sh
 </FILE>
 
 <!-- The files that make up the plugin, to be placed in /boot/config/plugins/publicip/ -->
-<FILE Name="/boot/config/plugins/&name;/doinst.sh" url="&git_url;/raw/master/doinst.sh" required="true" md5="648a66774747502ea5b9cae5f47b4984"/>
-<FILE Name="/boot/config/plugins/&name;/plugin-remove" url="&git_url;/raw/master/plugin-remove" required="true" md5="d25c6e6f4bca740495aacfdbcf535774"/>
-<FILE Name="/boot/config/plugins/&name;/get_public_ip.sh" url="&git_url;/raw/master/src/get_public_ip.sh" required="true" md5="1bd2fe581515ec95148fc91d6c6ceb0f"/>
-<FILE Name="/boot/config/plugins/&name;/publicip.js" url="&git_url;/raw/master/src/publicip.js" required="true" md5="70ea9b66670b915ff9061acb4e6cbc11"/>
-<FILE Name="/boot/config/plugins/&name;/publicip.php" url="&git_url;/raw/master/src/publicip.php" required="true" md5="0814aabdfcdfb485e671c7ff87e7b844"/>
+<FILE Name="/boot/config/plugins/&name;/doinst.sh" url="&git_url;/raw/master/doinst.sh" required="true"/>
+<FILE Name="/boot/config/plugins/&name;/plugin-remove" url="&git_url;/raw/master/plugin-remove" required="true"/>
+<FILE Name="/boot/config/plugins/&name;/get_public_ip.sh" url="&git_url;/raw/master/src/get_public_ip.sh" required="true"/>
+<FILE Name="/boot/config/plugins/&name;/publicip.js" url="&git_url;/raw/master/src/publicip.js" required="true"/>
+<FILE Name="/boot/config/plugins/&name;/publicip.php" url="&git_url;/raw/master/src/publicip.php" required="true"/>
 
 </PLUGIN>
