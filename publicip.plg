@@ -3,7 +3,7 @@
 <!ENTITY name "publicip">
 <!ENTITY author "Gemini">
 <!ENTITY version "2026.01.17">
-<!ENTITY description "Displays the server's public IP address in the footer of the Unraid UI.">
+<!ENTITY description "Displays the server's public IP address in the footer of the Unraid UI. Coded by Gemini">
 <!ENTITY plg_url "https://github.com/aadilprabhakar/plugin_publicIPunraid">
 <!ENTITY git_url "https://github.com/aadilprabhakar/plugin_publicIPunraid">
 ]>
@@ -17,10 +17,10 @@
 </CHANGES>
 </FILE>
 
-<!-- Add script to footer -->
-<FILE Name="/usr/local/emhttp/plugins/&name;/publicip.js">
+<!-- PHP file to load the javascript on every page -->
+<FILE Name="/usr/local/emhttp/plugins/dynamix/public-ip-script-loader.php">
 <INLINE>
-/plugins/&name;/publicip.js
+&lt;?php echo '&lt;script type="text/javascript" src="/plugins/publicip/publicip.js"&gt;&lt;/script&gt;'; ?&gt;
 </INLINE>
 </FILE>
 
@@ -48,7 +48,7 @@ rm /tmp/remove-&name;.sh
 
 <!-- The files that make up the plugin, to be placed in /boot/config/plugins/publicip/ -->
 <FILE Name="/boot/config/plugins/&name;/doinst.sh" url="&git_url;/raw/master/doinst.sh" required="true" md5="56033baf183be7ea74f4c3a7b1262829"/>
-<FILE Name="/boot/config/plugins/&name;/plugin-remove" url="&git_url;/raw/master/plugin-remove" required="true" md5="d260abaacfbde45a58a47bcba797fba1"/>
+<FILE Name="/boot/config/plugins/&name;/plugin-remove" url="&git_url;/raw/master/plugin-remove" required="true" md5="d25c6e6f4bca740495aacfdbcf535774"/>
 <FILE Name="/boot/config/plugins/&name;/src/get_public_ip.sh" url="&git_url;/raw/master/src/get_public_ip.sh" required="true" md5="1bd2fe581515ec95148fc91d6c6ceb0f"/>
 <FILE Name="/boot/config/plugins/&name;/src/publicip.js" url="&git_url;/raw/master/src/publicip.js" required="true" md5="70ea9b66670b915ff9061acb4e6cbc11"/>
 <FILE Name="/boot/config/plugins/&name;/src/publicip.php" url="&git_url;/raw/master/src/publicip.php" required="true" md5="0814aabdfcdfb485e671c7ff87e7b844"/>

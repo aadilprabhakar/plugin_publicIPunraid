@@ -3,8 +3,12 @@
 # This script is executed once when the plugin is removed.
 
 PLUGIN_DIR="/usr/local/emhttp/plugins/publicip"
+JS_LOADER_FILE="/usr/local/emhttp/plugins/dynamix/public-ip-script-loader.php"
 
 # Remove the plugin directory
 rm -rf "$PLUGIN_DIR"
+
+# Remove the JS loader file
+rm -f "$JS_LOADER_FILE"
 
 echo "Public IP plugin removed."
