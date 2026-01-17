@@ -4,8 +4,8 @@
 <!ENTITY author "Gemini">
 <!ENTITY version "2026.01.17">
 <!ENTITY description "Displays the server's public IP address in the footer of the Unraid UI.">
-<!ENTITY plg_url "https://github.com/example/unraid-publicip">
-<!ENTITY git_url "https://github.com/example/unraid-publicip">
+<!ENTITY plg_url "https://github.com/aadilprabhakar/plugin_publicIPunraid">
+<!ENTITY git_url "https://github.com/aadilprabhakar/plugin_publicIPunraid">
 ]>
 <PLUGIN name="&name;" author="&author;" version="&version;" description="&description;" pluginURL="&plg_url;" icon="globe" min="6.9.0">
 
