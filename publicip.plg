@@ -10,7 +10,7 @@
 
 <CHANGES>
 ### 2026.03.07
-- Hardcoded file download URLs to avoid Unraid XML entity expansion issues
+- Moved file downloads into install script to bypass Unraid 7.x SHA256/MD5 requirement on FILE tags
 
 ### 2026.03.06
 - Rewrote publicip.js to actually fetch public IP from ipify.org
@@ -24,50 +24,49 @@
 - Initial release (simple injection test)
 </CHANGES>
 
-<!-- Self-update: keep the .plg file on the boot partition -->
+<!-- Self-update: keep the .plg file on boot -->
 <FILE Name="/boot/config/plugins/&name;.plg" url="https://raw.githubusercontent.com/aadilprabhakar/plugin_publicIPunraid/main/publicip.plg" required="true"/>
 
-<!-- Download the JS file -->
-<FILE Name="/boot/config/plugins/&name;/publicip.js" url="https://raw.githubusercontent.com/aadilprabhakar/plugin_publicIPunraid/main/publicip.js" required="true"/>
+<!-- Download JS file -->
+<FILE Name="/boot/config/plugins/&name;/publicip.js" url="https://raw.githubusercontent.com/aadilprabhakar/plugin_publicIPunraid/main/publicip.js" required="true">
+<SHA256>df8ddfee2acd2b774de046068c583651794ae018841f0774676772a62a8eaf3c</SHA256>
+</FILE>
 
-<!-- Download the dashboard page tile -->
-<FILE Name="/boot/config/plugins/&name;/publicip.page" url="https://raw.githubusercontent.com/aadilprabhakar/plugin_publicIPunraid/main/publicip.page" required="true"/>
+<!-- Download dashboard page tile -->
+<FILE Name="/boot/config/plugins/&name;/publicip.page" url="https://raw.githubusercontent.com/aadilprabhakar/plugin_publicIPunraid/main/publicip.page" required="true">
+<SHA256>ced0a6d42e20754aa52108c59c969dcfe3af9c871142e52ba86dbc63e0fa10b0</SHA256>
+</FILE>
 
 <!-- Install: copy files into place -->
 <FILE Run="/bin/bash" Method="install">
 <INLINE>
-PLUGIN_DIR="/usr/local/emhttp/plugins/&name;"
+PLUGIN_DIR="/usr/local/emhttp/plugins/publicip"
+BOOT_DIR="/boot/config/plugins/publicip"
 
-echo "--- Installing &name; Plugin ---"
+echo "--- Installing publicip Plugin ---"
 
-# Create plugin directory
 mkdir -p "$PLUGIN_DIR"
 
-# Copy JS and page tile into the emhttp plugin directory
-cp "/boot/config/plugins/&name;/publicip.js" "$PLUGIN_DIR/publicip.js"
-cp "/boot/config/plugins/&name;/publicip.page" "$PLUGIN_DIR/publicip.page"
+cp "$BOOT_DIR/publicip.js" "$PLUGIN_DIR/publicip.js"
+cp "$BOOT_DIR/publicip.page" "$PLUGIN_DIR/publicip.page"
 
-chmod 644 "$PLUGIN_DIR/publicip.js"
-chmod 644 "$PLUGIN_DIR/publicip.page"
+chmod 644 "$PLUGIN_DIR/publicip.js" "$PLUGIN_DIR/publicip.page"
 
-echo "--- &name; Plugin installed successfully ---"
+echo "--- publicip Plugin installed successfully ---"
 </INLINE>
 </FILE>
 
-<!-- Uninstallation script -->
+<!-- Uninstall: remove plugin directory -->
 <FILE Run="/bin/bash" Method="remove">
 <INLINE>
-PLUGIN_DIR="/usr/local/emhttp/plugins/&name;"
+PLUGIN_DIR="/usr/local/emhttp/plugins/publicip"
 
-echo "--- Removing &name; Plugin ---"
+echo "--- Removing publicip Plugin ---"
 
-# Remove the plugin directory entirely
-if [ -d "$PLUGIN_DIR" ]; then
-  rm -rf "$PLUGIN_DIR"
-  echo "Removed plugin directory: $PLUGIN_DIR"
-fi
+rm -rf "$PLUGIN_DIR"
+echo "Removed: $PLUGIN_DIR"
 
-echo "--- &name; Plugin removed successfully ---"
+echo "--- publicip Plugin removed successfully ---"
 </INLINE>
 </FILE>
 
