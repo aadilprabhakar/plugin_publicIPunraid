@@ -1,56 +1,72 @@
 <?xml version='1.0' standalone='yes'?>
 <!DOCTYPE PLUGIN [
 <!ENTITY name "publicip">
-<!ENTITY author "Gemini">
-<!ENTITY version "2026.01.17">
-<!ENTITY description "Displays the server's public IP address in the footer of the Unraid UI. Coded by Gemini">
-<!ENTITY plg_url "https://github.com/aadilprabhakar/plugin_publicIPunraid">
-<!ENTITY git_url "https://github.com/aadilprabhakar/plugin_publicIPunraid">
+<!ENTITY author "Aadil P">
+<!ENTITY version "2026.03.06">
+<!ENTITY description "Displays your server's public IP address on the Unraid dashboard.">
+<!ENTITY pluginURL "https://raw.githubusercontent.com/aadilprabhakar/plugin_publicIPunraid/main/publicip.plg">
+<!ENTITY rawBase "https://raw.githubusercontent.com/aadilprabhakar/plugin_publicIPunraid/main">
 ]>
-<PLUGIN name="&name;" author="&author;" version="&version;" description="&description;" pluginURL="&plg_url;" icon="globe" min="6.9.0">
+<PLUGIN name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;" icon="globe" min="6.9.0">
 
-<!-- This file is the source of the plugin, which will be downloaded to /boot/config/plugins -->
-<FILE Name="/boot/config/plugins/&name;.plg" url="&git_url;/raw/master/&name;.plg" required="true">
 <CHANGES>
+### 2026.03.06
+- Rewrote publicip.js to actually fetch public IP from ipify.org
+- Added localStorage caching (5-minute TTL) to reduce API calls
+- Added auto-refresh every 5 minutes via setInterval
+- Replaced Main.php injection with proper Unraid dashboard tile (.page file)
+- Fixed pluginURL to point to actual repository
+- Added graceful error handling
+
 ### 2026.01.17
-- Initial Release
+- Initial release (simple injection test)
 </CHANGES>
-</FILE>
 
-<!-- PHP file to load the javascript on every page -->
-<FILE Name="/usr/local/emhttp/plugins/dynamix/public-ip-script-loader.php">
-<INLINE>
-&lt;?php echo '&lt;script type="text/javascript" src="/plugins/publicip/publicip.js"&gt;&lt;/script&gt;'; ?&gt;
-</INLINE>
-</FILE>
+<!-- Self-update: keep the .plg file on the boot partition -->
+<FILE Name="/boot/config/plugins/&name;.plg" url="&pluginURL;" required="true"/>
 
-<!-- The installation script -->
+<!-- Download the JS file -->
+<FILE Name="/boot/config/plugins/&name;/publicip.js" url="&rawBase;/publicip.js" required="true"/>
+
+<!-- Download the dashboard page tile -->
+<FILE Name="/boot/config/plugins/&name;/publicip.page" url="&rawBase;/publicip.page" required="true"/>
+
+<!-- Install: copy files into place -->
 <FILE Run="/bin/bash" Method="install">
 <INLINE>
-# Copy doinst.sh to a temporary location and execute it
-cp /boot/config/plugins/&name;/doinst.sh /tmp/doinst-&name;.sh
-chmod +x /tmp/doinst-&name;.sh
-/tmp/doinst-&name;.sh
-rm /tmp/doinst-&name;.sh
+PLUGIN_DIR="/usr/local/emhttp/plugins/&name;"
+
+echo "--- Installing &name; Plugin ---"
+
+# Create plugin directory
+mkdir -p "$PLUGIN_DIR"
+
+# Copy JS and page tile into the emhttp plugin directory
+cp "/boot/config/plugins/&name;/publicip.js" "$PLUGIN_DIR/publicip.js"
+cp "/boot/config/plugins/&name;/publicip.page" "$PLUGIN_DIR/publicip.page"
+
+chmod 644 "$PLUGIN_DIR/publicip.js"
+chmod 644 "$PLUGIN_DIR/publicip.page"
+
+echo "--- &name; Plugin installed successfully ---"
 </INLINE>
 </FILE>
 
-<!-- The uninstallation script -->
+<!-- Uninstallation script -->
 <FILE Run="/bin/bash" Method="remove">
 <INLINE>
-# Copy plugin-remove to a temporary location and execute it
-cp /boot/config/plugins/&name;/plugin-remove /tmp/remove-&name;.sh
-chmod +x /tmp/remove-&name;.sh
-/tmp/remove-&name;.sh
-rm /tmp/remove-&name;.sh
+PLUGIN_DIR="/usr/local/emhttp/plugins/&name;"
+
+echo "--- Removing &name; Plugin ---"
+
+# Remove the plugin directory entirely
+if [ -d "$PLUGIN_DIR" ]; then
+  rm -rf "$PLUGIN_DIR"
+  echo "Removed plugin directory: $PLUGIN_DIR"
+fi
+
+echo "--- &name; Plugin removed successfully ---"
 </INLINE>
 </FILE>
-
-<!-- The files that make up the plugin, to be placed in /boot/config/plugins/publicip/ -->
-<FILE Name="/boot/config/plugins/&name;/doinst.sh" url="&git_url;/raw/master/doinst.sh" required="true"/>
-<FILE Name="/boot/config/plugins/&name;/plugin-remove" url="&git_url;/raw/master/plugin-remove" required="true"/>
-<FILE Name="/boot/config/plugins/&name;/get_public_ip.sh" url="&git_url;/raw/master/src/get_public_ip.sh" required="true"/>
-<FILE Name="/boot/config/plugins/&name;/publicip.js" url="&git_url;/raw/master/src/publicip.js" required="true"/>
-<FILE Name="/boot/config/plugins/&name;/publicip.php" url="&git_url;/raw/master/src/publicip.php" required="true"/>
 
 </PLUGIN>

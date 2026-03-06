@@ -1,0 +1,20 @@
+Menu="Dashboard"
+Title="Public IP"
+Icon="globe"
+Tag="globe"
+---
+<?php
+// Public IP dashboard tile
+?>
+<div style="text-align:center; padding: 12px 8px;">
+  <div style="font-size:13px; color:#aaa; margin-bottom:6px; text-transform:uppercase; letter-spacing:1px;">
+    <i class="fa fa-globe"></i> Public IP
+  </div>
+  <div id="publicip-value" style="font-size:20px; font-weight:bold; letter-spacing:1px;">
+    <i class="fa fa-spinner fa-spin"></i>
+  </div>
+  <div id="publicip-updated" style="font-size:11px; color:#888; margin-top:6px;">
+    Fetching&hellip;
+  </div>
+</div>
+<script src="/plugins/publicip/publicip.js"></script>
