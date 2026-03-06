@@ -6,15 +6,17 @@ Tag="globe"
 <?php
 // Public IP dashboard tile
 ?>
-<div style="text-align:center; padding: 12px 8px;">
-  <div style="font-size:13px; color:#aaa; margin-bottom:6px; text-transform:uppercase; letter-spacing:1px;">
-    <i class="fa fa-globe"></i> Public IP
-  </div>
-  <div id="publicip-value" style="font-size:20px; font-weight:bold; letter-spacing:1px;">
-    <i class="fa fa-spinner fa-spin"></i>
-  </div>
-  <div id="publicip-updated" style="font-size:11px; color:#888; margin-top:6px;">
-    Fetching&hellip;
+<div style="display:flex; justify-content:center; padding: 8px 0;">
+  <div style="background:#1c1c1c; border:1px solid #333; border-radius:6px; padding:14px 24px; min-width:180px; max-width:260px; text-align:center;">
+    <div style="font-size:11px; color:#888; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">
+      <i class="fa fa-globe" style="margin-right:5px;"></i>Public IP
+    </div>
+    <div id="publicip-value" style="font-size:18px; font-weight:bold; letter-spacing:0.5px;">
+      <i class="fa fa-spinner fa-spin" style="color:#aaa;"></i>
+    </div>
+    <div id="publicip-updated" style="font-size:10px; color:#666; margin-top:6px;">
+      Fetching&hellip;
+    </div>
   </div>
 </div>
 <script src="/plugins/publicip/publicip.js"></script>

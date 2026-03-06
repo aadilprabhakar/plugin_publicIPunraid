@@ -2,17 +2,15 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name "publicip">
 <!ENTITY author "Aadil P">
-<!ENTITY version "2026.03.06">
+<!ENTITY version "2026.03.07">
 <!ENTITY description "Displays your server's public IP address on the Unraid dashboard.">
 <!ENTITY pluginURL "https://raw.githubusercontent.com/aadilprabhakar/plugin_publicIPunraid/main/publicip.plg">
-<!ENTITY jsURL "https://raw.githubusercontent.com/aadilprabhakar/plugin_publicIPunraid/main/publicip.js">
-<!ENTITY pageURL "https://raw.githubusercontent.com/aadilprabhakar/plugin_publicIPunraid/main/publicip.page">
 ]>
 <PLUGIN name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;" icon="globe" min="6.9.0">
 
 <CHANGES>
 ### 2026.03.07
-- Fixed FILE download URLs to use explicit entities (Unraid parser does not expand custom base entities)
+- Hardcoded file download URLs to avoid Unraid XML entity expansion issues
 
 ### 2026.03.06
 - Rewrote publicip.js to actually fetch public IP from ipify.org
@@ -27,13 +25,13 @@
 </CHANGES>
 
 <!-- Self-update: keep the .plg file on the boot partition -->
-<FILE Name="/boot/config/plugins/&name;.plg" url="&pluginURL;" required="true"/>
+<FILE Name="/boot/config/plugins/&name;.plg" url="https://raw.githubusercontent.com/aadilprabhakar/plugin_publicIPunraid/main/publicip.plg" required="true"/>
 
 <!-- Download the JS file -->
-<FILE Name="/boot/config/plugins/&name;/publicip.js" url="&jsURL;" required="true"/>
+<FILE Name="/boot/config/plugins/&name;/publicip.js" url="https://raw.githubusercontent.com/aadilprabhakar/plugin_publicIPunraid/main/publicip.js" required="true"/>
 
 <!-- Download the dashboard page tile -->
-<FILE Name="/boot/config/plugins/&name;/publicip.page" url="&pageURL;" required="true"/>
+<FILE Name="/boot/config/plugins/&name;/publicip.page" url="https://raw.githubusercontent.com/aadilprabhakar/plugin_publicIPunraid/main/publicip.page" required="true"/>
 
 <!-- Install: copy files into place -->
 <FILE Run="/bin/bash" Method="install">
