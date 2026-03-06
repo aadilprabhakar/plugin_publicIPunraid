@@ -3,14 +3,13 @@
 <!ENTITY name "publicip">
 <!ENTITY author "Aadil P">
 <!ENTITY version "2026.03.07">
-<!ENTITY description "Displays your server's public IP address on the Unraid dashboard.">
 <!ENTITY pluginURL "https://raw.githubusercontent.com/aadilprabhakar/plugin_publicIPunraid/main/publicip.plg">
 ]>
 <PLUGIN name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;" icon="globe" min="6.9.0">
 
 <CHANGES>
 ### 2026.03.07
-- Moved file downloads into install script to bypass Unraid 7.x SHA256/MD5 requirement on FILE tags
+- Downloads js/page files via wget in install script (Unraid 7.x FILE tag downloads require checksums and are unreliable for small plugins)
 
 ### 2026.03.06
 - Rewrote publicip.js to actually fetch public IP from ipify.org
@@ -24,49 +23,29 @@
 - Initial release (simple injection test)
 </CHANGES>
 
-<!-- Self-update: keep the .plg file on boot -->
 <FILE Name="/boot/config/plugins/&name;.plg" url="https://raw.githubusercontent.com/aadilprabhakar/plugin_publicIPunraid/main/publicip.plg" required="true"/>
 
-<!-- Download JS file -->
-<FILE Name="/boot/config/plugins/&name;/publicip.js" url="https://raw.githubusercontent.com/aadilprabhakar/plugin_publicIPunraid/main/publicip.js" required="true">
-<SHA256>df8ddfee2acd2b774de046068c583651794ae018841f0774676772a62a8eaf3c</SHA256>
-</FILE>
-
-<!-- Download dashboard page tile -->
-<FILE Name="/boot/config/plugins/&name;/publicip.page" url="https://raw.githubusercontent.com/aadilprabhakar/plugin_publicIPunraid/main/publicip.page" required="true">
-<SHA256>ced0a6d42e20754aa52108c59c969dcfe3af9c871142e52ba86dbc63e0fa10b0</SHA256>
-</FILE>
-
-<!-- Install: copy files into place -->
 <FILE Run="/bin/bash" Method="install">
 <INLINE>
+BASE="https://raw.githubusercontent.com/aadilprabhakar/plugin_publicIPunraid/main"
 PLUGIN_DIR="/usr/local/emhttp/plugins/publicip"
 BOOT_DIR="/boot/config/plugins/publicip"
 
-echo "--- Installing publicip Plugin ---"
+mkdir -p "$PLUGIN_DIR" "$BOOT_DIR"
 
-mkdir -p "$PLUGIN_DIR"
+wget -qO "$PLUGIN_DIR/publicip.js" "$BASE/publicip.js" && echo "Downloaded publicip.js" || echo "ERROR: failed to download publicip.js"
+wget -qO "$PLUGIN_DIR/publicip.page" "$BASE/publicip.page" && echo "Downloaded publicip.page" || echo "ERROR: failed to download publicip.page"
 
-cp "$BOOT_DIR/publicip.js" "$PLUGIN_DIR/publicip.js"
-cp "$BOOT_DIR/publicip.page" "$PLUGIN_DIR/publicip.page"
+cp "$PLUGIN_DIR/publicip.js" "$BOOT_DIR/publicip.js"
+cp "$PLUGIN_DIR/publicip.page" "$BOOT_DIR/publicip.page"
 
 chmod 644 "$PLUGIN_DIR/publicip.js" "$PLUGIN_DIR/publicip.page"
-
-echo "--- publicip Plugin installed successfully ---"
 </INLINE>
 </FILE>
 
-<!-- Uninstall: remove plugin directory -->
 <FILE Run="/bin/bash" Method="remove">
 <INLINE>
-PLUGIN_DIR="/usr/local/emhttp/plugins/publicip"
-
-echo "--- Removing publicip Plugin ---"
-
-rm -rf "$PLUGIN_DIR"
-echo "Removed: $PLUGIN_DIR"
-
-echo "--- publicip Plugin removed successfully ---"
+rm -rf "/usr/local/emhttp/plugins/publicip"
 </INLINE>
 </FILE>
 
