@@ -33,8 +33,8 @@ BOOT_DIR="/boot/config/plugins/publicip"
 
 mkdir -p "$PLUGIN_DIR" "$BOOT_DIR"
 
-wget -qO "$PLUGIN_DIR/publicip.js" "$BASE/publicip.js" && echo "Downloaded publicip.js" || echo "ERROR: failed to download publicip.js"
-wget -qO "$PLUGIN_DIR/publicip.page" "$BASE/publicip.page" && echo "Downloaded publicip.page" || echo "ERROR: failed to download publicip.page"
+wget -qO "$PLUGIN_DIR/publicip.js" "$BASE/publicip.js"
+wget -qO "$PLUGIN_DIR/publicip.page" "$BASE/publicip.page"
 
 cp "$PLUGIN_DIR/publicip.js" "$BOOT_DIR/publicip.js"
 cp "$PLUGIN_DIR/publicip.page" "$BOOT_DIR/publicip.page"
